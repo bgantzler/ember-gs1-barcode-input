@@ -1,0 +1,7 @@
+<input class="barcode-input" type="text"
+       value={{_barcode}}
+       onkeypress={{action _keypress}}
+       oninput={{action (mut _barcode) value="target.value"}}
+       data-test-barcode
+       ...attributes
+>

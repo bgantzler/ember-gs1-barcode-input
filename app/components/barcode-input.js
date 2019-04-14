@@ -1,0 +1,1 @@
+export { default } from 'ember-barcode-input/components/barcode-input';

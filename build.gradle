@@ -1,0 +1,11 @@
+apply plugin: 'idea'
+
+idea {
+  module {
+    excludeDirs += file('coverage')
+    excludeDirs += file('dist')
+    excludeDirs += file('tmp')
+    excludeDirs += file('node_modules')
+    excludeDirs += file('bower_components')
+  }
+}
