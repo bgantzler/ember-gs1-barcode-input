@@ -73,7 +73,7 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
 
   });
 
-  test("AIs to Data", function(assert) {
+  test("Parts to Data", function(assert) {
     let AI_01 = gs1BarcodeParser.findAI("01");
     let value = "hello";
     let AIs = [
@@ -83,7 +83,7 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
       }
     ];
 
-    let data = gs1BarcodeParser.AIsToData(AIs);
+    let data = gs1BarcodeParser.partsToData(AIs);
 
     assert.equal(data[AI_01.name], value);
   });
@@ -107,7 +107,7 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
 
       let AI = gs1BarcodeParser.findAI("01");
 
-      let result = AI.parser(AIs, AI, this.barcode, startPos);
+      let result = AI.parser(AIs, AI, gs1BarcodeParser.FNC1, this.barcode, startPos);
 
       assert.equal(result, startPos+AI.code.length+AI.length);
       assert.equal(AIs[0].value, barcodeData.gtin);
@@ -119,7 +119,7 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
 
       let AI = gs1BarcodeParser.findAI("17");
 
-      let result = AI.parser(AIs, AI, this.barcode, startPos);
+      let result = AI.parser(AIs, AI, gs1BarcodeParser.FNC1, this.barcode, startPos);
 
       assert.equal(result, startPos+AI.code.length+AI.length);
       assert.equal(AIs[0].value, barcodeData.exp);
@@ -131,7 +131,7 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
 
       let AI = gs1BarcodeParser.findAI("21");
 
-      let result = AI.parser(AIs, AI, this.barcode, startPos);
+      let result = AI.parser(AIs, AI, gs1BarcodeParser.FNC1, this.barcode, startPos);
 
       assert.equal(result, startPos+AI.code.length+barcodeData.serialNumber.length+1);
       assert.equal(AIs[0].value, barcodeData.serialNumber);
@@ -143,7 +143,7 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
 
       let AI = gs1BarcodeParser.findAI("10");
 
-      let result = AI.parser(AIs, AI,this.barcode, startPos);
+      let result = AI.parser(AIs, AI, gs1BarcodeParser.FNC1, this.barcode, startPos);
 
       assert.equal(result, startPos+AI.code.length+barcodeData.lotNumber.length+1);
       assert.equal(AIs[0].value, barcodeData.lotNumber);

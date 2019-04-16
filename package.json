@@ -21,6 +21,7 @@
     "test:all": "ember try:each"
   },
   "dependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
     "@glimmer/component": "^0.14.0-alpha.4",
     "ember-auto-import": "^1.2.21",
     "ember-cli-babel": "^7.1.2",
