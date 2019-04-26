@@ -55,7 +55,7 @@ class BarcodeInput extends Component {
 
     // let barcodeData = this.barcodeParser.partsToData(ais);
 
-    this.onParse(barcode, keyEvents);
+    this.onParse(barcode, this._barcode, keyEvents);
   }
 }
 
