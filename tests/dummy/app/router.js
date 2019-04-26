@@ -11,6 +11,7 @@ Router.map(function() {
     this.route('usage');
     this.route('installation');
     this.route('detail');
+    this.route('application-identifiers');
   });
 
   this.route('not-found', { path: '/*path' });

@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-import gs1BarcodeParser from 'ember-barcode-input/utils/gs1-barcode-parser';
+import * as gs1BarcodeParser from 'ember-gs1-barcode-parser/utils/gs1-barcode-parser';
 
 module('Unit | Utility | gs1-barcode-parser', function(hooks) {
   setupTest(hooks);
@@ -74,7 +74,7 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
   });
 
   test("Parts to Data", function(assert) {
-    let AI_01 = gs1BarcodeParser.findAI("01");
+    let AI_01 = gs1BarcodeParser.AIs["01"];
     let value = "hello";
     let AIs = [
       {
@@ -105,7 +105,7 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
       let AIs = [];
       let startPos = 0;
 
-      let AI = gs1BarcodeParser.findAI("01");
+      let AI = gs1BarcodeParser.AIs["01"];
 
       let result = AI.parser(AIs, AI, gs1BarcodeParser.FNC1, this.barcode, startPos);
 
@@ -117,7 +117,7 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
       let AIs = [];
       let startPos = 33;
 
-      let AI = gs1BarcodeParser.findAI("17");
+      let AI = gs1BarcodeParser.AIs["17"];
 
       let result = AI.parser(AIs, AI, gs1BarcodeParser.FNC1, this.barcode, startPos);
 
@@ -129,7 +129,7 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
       let AIs = [];
       let startPos = 16;
 
-      let AI = gs1BarcodeParser.findAI("21");
+      let AI = gs1BarcodeParser.AIs["21"];
 
       let result = AI.parser(AIs, AI, gs1BarcodeParser.FNC1, this.barcode, startPos);
 
@@ -141,7 +141,7 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
       let AIs = [];
       let startPos = 41;
 
-      let AI = gs1BarcodeParser.findAI("10");
+      let AI = gs1BarcodeParser.AIs["10"];
 
       let result = AI.parser(AIs, AI, gs1BarcodeParser.FNC1, this.barcode, startPos);
 

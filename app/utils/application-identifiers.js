@@ -1,1 +1,1 @@
-export { default } from 'ember-barcode-input/utils/application-identifiers';
+export { default } from 'ember-gs1-barcode-parser/utils/application-identifiers';

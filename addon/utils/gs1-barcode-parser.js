@@ -1,19 +1,8 @@
+export { default as AIs} from './application-identifiers';
 import AIs from './application-identifiers';
 
-const FNC1Code = "0029";
-const FNC1 = String.fromCharCode(Number(FNC1Code));
-
-/**
- * Search the AI definitions for a specific AI code
- *
- * @param code
- * @returns {AI}
- */
-function findAI(code) {
-  return AIs.find(item => {
-    return item.code === code;
-  })
-}
+export const FNC1Code = "0029";
+export const FNC1 = String.fromCharCode(Number(FNC1Code));
 
 /**
  * Takes an array of Key Events and converts them into a barcode string
@@ -23,7 +12,7 @@ function findAI(code) {
  * @param fnc1
  * @returns {string}
  */
-function keysToBarcode(keyEvents, groupSeparators, fnc1Code) {
+export function keysToBarcode(keyEvents, groupSeparators, fnc1Code) {
   let code = "";
   keyEvents.forEach(key => {
     let c = `${key.location}${(("000")+key.which).slice(-3)}`;
@@ -50,7 +39,7 @@ function keysToBarcode(keyEvents, groupSeparators, fnc1Code) {
  * @param parts
  * @constructor
  */
-function partsToData(parts) {
+export function partsToData(parts) {
   return parts.reduce((accumulator, currentValue) => {
     accumulator[currentValue.AI.name] = currentValue.value;
     return accumulator;
@@ -63,7 +52,7 @@ function partsToData(parts) {
  * @param barcode
  * @returns {Array}
  */
-function parseBarcode(barcode) {
+export function parseBarcode(barcode) {
   let startPos = 0;
   let len = barcode.length;
   let result = [];
@@ -74,7 +63,7 @@ function parseBarcode(barcode) {
     let ai;
     while (aiLen < 4) {
       ai = barcode.substr(startPos, aiLen);
-      AI = findAI(ai);
+      AI = AIs[ai];
 
       if (AI !== undefined) {
         break;
@@ -92,12 +81,36 @@ function parseBarcode(barcode) {
   return result;
 }
 
-export default {
-  parseBarcode,
-  findAI,
-  keysToBarcode,
-  partsToData,
-  AIs,
-  FNC1,
-  FNC1Code
-}
+/**
+ * Export Functions
+ */
+// export default {
+//   parseBarcode,
+//   keysToBarcode,
+//   partsToData,
+//   AIs,
+//   FNC1,
+//   FNC1Code
+// }
+
+
+/*
+01003617550050242116708357803969002917190831108148200167
+
+00361755005024      GTIN (interstingly is the NDC)
+16708357803969   Serial Number
+8148200167  Lot #
+  190831   expiration 2019/08/31
+01              21              002917      10      unknown (markers?)
+
+01 marker is GTIN +14 (14 characters that make up the GTIN
+10 Lot number
+17 marker expiration date
+21 serial number
+
+
+
+
+010035551371001521100006613963002917201100101090512C
+
+*/

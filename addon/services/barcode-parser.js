@@ -1,5 +1,5 @@
 import Service from '@ember/service';
-import gs1BarcodeParser from 'ember-barcode-input/utils/gs1-barcode-parser';
+import * as gs1BarcodeParser from 'ember-gs1-barcode-parser/utils/gs1-barcode-parser';
 
 class BarcodeParser extends Service {
   /**

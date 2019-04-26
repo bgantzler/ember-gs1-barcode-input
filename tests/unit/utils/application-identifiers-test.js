@@ -5,7 +5,7 @@ module('Unit | Utility | ApplicationIdentifiers', function() {
 
   // Replace this with your real tests.
   test('it works', function(assert) {
-    let result = applicationIdentifiers;
-    assert.ok(result.length > 0);
+    // let result = applicationIdentifiers;
+    assert.ok(applicationIdentifiers);
   });
 });
