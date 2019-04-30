@@ -85,20 +85,15 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
     test('Parses the barcode', function(assert) {
       let result = parseBarcode(this.barcode);
 
-      assert.equal(4, result.length);
+      assert.equal(result.applicationIdentifiers.length, 4);
 
-      let check = function(a, code, value) {
-        let AI = a.find(item => {
-          return item.AI.code === code;
-        });
+      assert.ok(result.data);
+      assert.ok(result.applicationIdentifiers);
 
-        assert.equal(AI.value, value);
-      };
-
-      check(result,"01", barcodeData.gtin);
-      check(result,"10", barcodeData.lotNumber);
-      check(result,"17", barcodeData.exp);
-      check(result,"21", barcodeData.serialNumber);
+      assert.equal(result.data[GS1ApplicationIdentifiers["01"].name], barcodeData.gtin);
+      assert.equal(result.data[GS1ApplicationIdentifiers["10"].name], barcodeData.lotNumber);
+      assert.equal(result.data[GS1ApplicationIdentifiers["17"].name], barcodeData.exp);
+      assert.equal(result.data[GS1ApplicationIdentifiers["21"].name], barcodeData.serialNumber);
     });
 
   });

@@ -7,7 +7,7 @@ export const FNC1 = String.fromCharCode(Number(FNC1Code));
 /**
  *
  * @param parts
- * @constructor
+ * @return {Object}
  */
 export function partsToData(parts) {
   return parts.reduce((accumulator, currentValue) => {
@@ -20,7 +20,8 @@ export function partsToData(parts) {
  * Parses a barcode string into a hash where each part found is represented
  *
  * @param barcode
- * @returns {Array}
+ * @returns {Object}   applicationIdentifiers[]
+ *                     data - Hash of identifier/value
  */
 export function parseBarcode(barcode) {
   let startPos = 0;
@@ -48,7 +49,11 @@ export function parseBarcode(barcode) {
     }
   }
 
-  return result;
+  return {
+    applicationIdentifiers: result,
+    data: partsToData(result)
+  };
+
 }
 
 /**
