@@ -1,5 +1,5 @@
 {
-  "name": "ember-gs1-barcode-parser",
+  "name": "ember-gs1-barcode-input",
   "version": "0.1.0",
   "description": "Provides and input field for parsing GS1 barcodes",
   "keywords": [

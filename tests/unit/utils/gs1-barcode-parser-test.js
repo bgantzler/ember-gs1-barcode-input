@@ -1,80 +1,13 @@
 import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 
-import * as gs1BarcodeParser from 'ember-gs1-barcode-parser/utils/gs1-barcode-parser';
+import { parseBarcode, partsToData, GS1ApplicationIdentifiers, FNC1} from 'ember-gs1-barcode-input';
 
 module('Unit | Utility | gs1-barcode-parser', function(hooks) {
   setupTest(hooks);
 
-  test("Keys To Code", function(assert){
-
-    let keyEvents = [
-      {
-        which: 50,
-        location: 0
-      },
-      {
-        which: 49,
-        location: 0
-      },
-      {
-        which: 97,
-        location: 0
-      },
-      {
-        which: 98,
-        location: 0
-      },
-      {
-        which: 99,
-        location: 0
-      },
-      {
-        which: 48,
-        location: 3
-      },
-      {
-        which: 48,
-        location: 3
-      },
-      {
-        which: 50,
-        location: 3
-      },
-      {
-        which: 57,
-        location: 3
-      },
-      {
-        which: 48,
-        location: 0
-      },
-      {
-        which: 49,
-        location: 0
-      },
-      {
-        which: 97,
-        location: 0
-      },
-      {
-        which: 98,
-        location: 0
-      },
-      {
-        which: 99,
-        location: 0
-      },
-    ];
-
-    let code = gs1BarcodeParser.keysToBarcode(keyEvents, ['3048304830503057'], gs1BarcodeParser.FNC1Code);
-    let expected = `21abc${gs1BarcodeParser.FNC1}01abc`;
-    assert.equal(code, expected);
-
-  });
-
   test("Parts to Data", function(assert) {
-    let AI_01 = gs1BarcodeParser.AIs["01"];
+    let AI_01 = GS1ApplicationIdentifiers["01"];
     let value = "hello";
     let AIs = [
       {
@@ -83,7 +16,7 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
       }
     ];
 
-    let data = gs1BarcodeParser.partsToData(AIs);
+    let data = partsToData(AIs);
 
     assert.equal(data[AI_01.name], value);
   });
@@ -98,16 +31,16 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
     };
 
     hooks.beforeEach(function() {
-      this.barcode = `01003617550050242116708357803969${gs1BarcodeParser.FNC1}17190831108148200167`;
+      this.barcode = `01003617550050242116708357803969${FNC1}17190831108148200167`;
     });
 
     test('GTIN Parser', function(assert) {
       let AIs = [];
       let startPos = 0;
 
-      let AI = gs1BarcodeParser.AIs["01"];
+      let AI = GS1ApplicationIdentifiers["01"];
 
-      let result = AI.parser(AIs, AI, gs1BarcodeParser.FNC1, this.barcode, startPos);
+      let result = AI.parser(AIs, AI, FNC1, this.barcode, startPos);
 
       assert.equal(result, startPos+AI.code.length+AI.length);
       assert.equal(AIs[0].value, barcodeData.gtin);
@@ -117,9 +50,9 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
       let AIs = [];
       let startPos = 33;
 
-      let AI = gs1BarcodeParser.AIs["17"];
+      let AI = GS1ApplicationIdentifiers["17"];
 
-      let result = AI.parser(AIs, AI, gs1BarcodeParser.FNC1, this.barcode, startPos);
+      let result = AI.parser(AIs, AI, FNC1, this.barcode, startPos);
 
       assert.equal(result, startPos+AI.code.length+AI.length);
       assert.equal(AIs[0].value, barcodeData.exp);
@@ -129,9 +62,9 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
       let AIs = [];
       let startPos = 16;
 
-      let AI = gs1BarcodeParser.AIs["21"];
+      let AI = GS1ApplicationIdentifiers["21"];
 
-      let result = AI.parser(AIs, AI, gs1BarcodeParser.FNC1, this.barcode, startPos);
+      let result = AI.parser(AIs, AI, FNC1, this.barcode, startPos);
 
       assert.equal(result, startPos+AI.code.length+barcodeData.serialNumber.length+1);
       assert.equal(AIs[0].value, barcodeData.serialNumber);
@@ -141,16 +74,16 @@ module('Unit | Utility | gs1-barcode-parser', function(hooks) {
       let AIs = [];
       let startPos = 41;
 
-      let AI = gs1BarcodeParser.AIs["10"];
+      let AI = GS1ApplicationIdentifiers["10"];
 
-      let result = AI.parser(AIs, AI, gs1BarcodeParser.FNC1, this.barcode, startPos);
+      let result = AI.parser(AIs, AI, FNC1, this.barcode, startPos);
 
       assert.equal(result, startPos+AI.code.length+barcodeData.lotNumber.length+1);
       assert.equal(AIs[0].value, barcodeData.lotNumber);
     });
 
     test('Parses the barcode', function(assert) {
-      let result = gs1BarcodeParser.parseBarcode(this.barcode);
+      let result = parseBarcode(this.barcode);
 
       assert.equal(4, result.length);
 

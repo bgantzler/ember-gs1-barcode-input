@@ -1,5 +1,5 @@
 import Service from '@ember/service';
-import * as gs1BarcodeParser from 'ember-gs1-barcode-parser/utils/gs1-barcode-parser';
+import { parseBarcode, partsToData, FNC1Code } from 'ember-gs1-barcode-input';
 
 class BarcodeParser extends Service {
   /**
@@ -24,17 +24,49 @@ class BarcodeParser extends Service {
     "3048304830503057"    // this is numpad 0 0 2 9
   ];
 
+  /**
+   * Takes an array of Key Events and converts them into a barcode string
+   *
+   * @param keyEvents
+   * @param groupSeparators
+   * @param fnc1
+   * @returns {string}
+   */
   keysToBarcode(keyEvents) {
-    return gs1BarcodeParser.keysToBarcode(keyEvents, this.groupSeparators, gs1BarcodeParser.FNC1Code);
+    let code = "";
+    keyEvents.forEach(key => {
+      let c = `${key.location}${(("000")+key.which).slice(-3)}`;
+      code = code + c;
+    });
+
+    this.groupSeparators.forEach(sep => {
+      code = code.replace(sep, FNC1Code);
+    });
+
+    let barcode = "";
+    let startPos = 0;
+    let len = code.length;
+    while (startPos < len) {
+      let c = code.substr(startPos+1, 3);
+      barcode = barcode + String.fromCharCode(Number(c));
+      startPos = startPos + 4;
+    }
+    return barcode;
   }
 
-  partsToData(AIs) {
-    return gs1BarcodeParser.partsToData(AIs);
-  }
+  /**
+   *
+   * @param AIs Array
+   * @returns Object
+   */
+  partsToData = partsToData;
 
-  parseBarcode(barcode) {
-    return gs1BarcodeParser.parseBarcode(barcode);
-  }
+  /**
+   *
+   * @param barcode
+   * @return [] of AIs
+   */
+  parseBarcode = parseBarcode;
 }
 
 export default BarcodeParser;

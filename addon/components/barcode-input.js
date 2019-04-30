@@ -19,10 +19,10 @@ class BarcodeInput extends Component {
   /**
    * Action to inform the use of the barcode entered
    *
-   * @returns a hash containing
+   * @returns barcode: the keyEvents processed as a string. Separators have been replaced with the
+   *                   generally accepted separator, ascii code 29barcode - the barcode parsed and formatted for GS1
+   *          rawBarcode - the barcode string as processed by the input control
    *          keyEvents: an array of the keyEvents making up the barcode
-   *          barcode: the keyEvents processed as a string. Separators have been replaced with the
-   *                   generally accepted separator, ascii code 29
    */
   onParse;
 
@@ -31,7 +31,6 @@ class BarcodeInput extends Component {
 
   _keypress(ev) {
     this._keyEvents.push(ev);
-    console.log(ev);
     if (ev.which === 13){
       this._keypressEnter(this._keyEvents);
       this.set("_keyEvents", []);
@@ -49,14 +48,9 @@ class BarcodeInput extends Component {
     // Convert Keys to a barcode
     let barcode = this.barcodeParser.keysToBarcode(keyEvents);
 
-    // Convert the Barcode to an array of AIs
-    // let AIs = this.barcodeParser.parseBarcode(barcode);
-    // console.log(AIs);
-
-    // let barcodeData = this.barcodeParser.partsToData(ais);
-
     this.onParse(barcode, this._barcode, keyEvents);
   }
+
 }
 
 export default BarcodeInput;

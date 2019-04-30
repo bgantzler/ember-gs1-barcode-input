@@ -5,36 +5,6 @@ export const FNC1Code = "0029";
 export const FNC1 = String.fromCharCode(Number(FNC1Code));
 
 /**
- * Takes an array of Key Events and converts them into a barcode string
- *
- * @param keyEvents
- * @param groupSeparators
- * @param fnc1
- * @returns {string}
- */
-export function keysToBarcode(keyEvents, groupSeparators, fnc1Code) {
-  let code = "";
-  keyEvents.forEach(key => {
-    let c = `${key.location}${(("000")+key.which).slice(-3)}`;
-    code = code + c;
-  });
-
-  groupSeparators.forEach(sep => {
-    code = code.replace(sep, fnc1Code);
-  });
-
-  let barcode = "";
-  let startPos = 0;
-  let len = code.length;
-  while (startPos < len) {
-    let c = code.substr(startPos+1, 3);
-    barcode = barcode + String.fromCharCode(Number(c));
-    startPos = startPos + 4;
-  }
-  return barcode;
-}
-
-/**
  *
  * @param parts
  * @constructor

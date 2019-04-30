@@ -1,5 +1,5 @@
 import Controller from '@ember/controller';
-import * as gs1BarcodeParser from 'ember-gs1-barcode-parser/utils/gs1-barcode-parser';
+import * as gs1BarcodeParser from 'ember-gs1-barcode-input/utils/gs1-barcode-parser';
 
 export default class ApplicationIdentifiersController extends Controller {
   AIs = gs1BarcodeParser.AIs;

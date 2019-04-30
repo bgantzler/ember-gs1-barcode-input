@@ -5,7 +5,7 @@ Usage content
 The barcode parser will take a GS1 barcode and parse it into the individual components.
 
 ```js
-import * as gs1BarcodeParser from 'ember-gs1-barcode-parser/utils/gs1-barcode-parser';
+import { parseBarcode } from 'ember-gs1-barcode-input';
 
 export default class barcodeExample {
   parse(barcode) {

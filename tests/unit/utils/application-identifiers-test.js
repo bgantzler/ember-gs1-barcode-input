@@ -1,4 +1,4 @@
-import applicationIdentifiers from 'dummy/utils/application-identifiers';
+import applicationIdentifiers from 'ember-gs1-barcode-input/utils/application-identifiers';
 import { module, test } from 'qunit';
 
 module('Unit | Utility | ApplicationIdentifiers', function() {
